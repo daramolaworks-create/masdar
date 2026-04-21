@@ -24,7 +24,7 @@ import {
   Globe
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { chatWithAssistant } from './lib/gemini';
+import { chatWithAssistant } from './lib/deepseek';
 
 interface Message {
   id: string;
@@ -33,21 +33,50 @@ interface Message {
   timestamp: Date;
 }
 
-interface ChatHistory {
+interface Session {
   id: string;
   title: string;
-  date: string;
+  updatedAt: number;
+  messages: Message[];
+}
+
+const DEFAULT_WELCOME_MESSAGE: Message = {
+  id: 'welcome',
+  role: 'model',
+  content: 'Welcome to Masdar City. I am your AI Assistant. How can I assist with your Masdar City journey today?',
+  timestamp: new Date(),
+};
+
+function createNewSession(): Session {
+  return {
+    id: Date.now().toString(),
+    title: 'New Chat',
+    updatedAt: Date.now(),
+    messages: [{ ...DEFAULT_WELCOME_MESSAGE, timestamp: new Date() }],
+  };
 }
 
 export default function App() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 'welcome',
-      role: 'model',
-      content: 'Welcome to Masdar City. I am your AI Assistant. How can I assist with your Masdar City journey today?',
-      timestamp: new Date(),
+  const [sessions, setSessions] = useState<Session[]>(() => {
+    const saved = localStorage.getItem('masdar_chat_sessions');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Revive dates
+        parsed.forEach((s: any) => {
+          s.messages.forEach((m: any) => {
+            m.timestamp = new Date(m.timestamp);
+          });
+        });
+        if (parsed.length > 0) return parsed;
+      } catch (e) {
+        console.error('Failed to parse sessions from local storage', e);
+      }
     }
-  ]);
+    return [createNewSession()];
+  });
+
+  const [currentSessionId, setCurrentSessionId] = useState<string>(sessions[0]?.id);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -56,33 +85,66 @@ export default function App() {
   
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const currentSession = sessions.find(s => s.id === currentSessionId) || sessions[0];
+  const messages = currentSession?.messages || [];
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+  useEffect(() => {
+    localStorage.setItem('masdar_chat_sessions', JSON.stringify(sessions));
+  }, [sessions]);
+
+  const handleNewChat = () => {
+    const newSession = createNewSession();
+    setSessions(prev => [newSession, ...prev]);
+    setCurrentSessionId(newSession.id);
+  };
+
+  const handleSend = async (text?: string) => {
+    const messageContent = typeof text === 'string' ? text : input;
+    if (!messageContent.trim() || isLoading) return;
 
     const userMsg: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: input,
+      content: messageContent,
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMsg]);
-    setInput('');
+    let updatedSessionTitle = currentSession.title;
+    // Auto-title if it's the first user message
+    if (currentSession.messages.length === 1 && currentSession.title === 'New Chat') {
+      updatedSessionTitle = messageContent.slice(0, 30) + (messageContent.length > 30 ? '...' : '');
+    }
+
+    // Optimistically update UI
+    const updatedSessions = sessions.map(s => {
+      if (s.id === currentSessionId) {
+        return {
+          ...s,
+          title: updatedSessionTitle,
+          updatedAt: Date.now(),
+          messages: [...s.messages, userMsg]
+        };
+      }
+      return s;
+    });
+
+    setSessions(updatedSessions);
+    if (messageContent === input) setInput('');
     setIsLoading(true);
 
     try {
-      const history = messages.map(m => ({
+      const history = currentSession.messages.map(m => ({
         role: m.role,
         parts: [{ text: m.content }]
       }));
       
-      const response = await chatWithAssistant(input, history);
+      const response = await chatWithAssistant(messageContent, history);
       
       const assistantMsg: Message = {
         id: (Date.now() + 1).toString(),
@@ -91,7 +153,16 @@ export default function App() {
         timestamp: new Date(),
       };
       
-      setMessages(prev => [...prev, assistantMsg]);
+      setSessions(prev => prev.map(s => {
+        if (s.id === currentSessionId) {
+          return {
+            ...s,
+            updatedAt: Date.now(),
+            messages: [...s.messages, assistantMsg]
+          };
+        }
+        return s;
+      }));
     } catch (error) {
       console.error(error);
       const errorMsg: Message = {
@@ -100,7 +171,16 @@ export default function App() {
         content: "An error occurred while connecting to the assistant. Please check your connection or try again later.",
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, errorMsg]);
+      setSessions(prev => prev.map(s => {
+        if (s.id === currentSessionId) {
+          return {
+            ...s,
+            updatedAt: Date.now(),
+            messages: [...s.messages, errorMsg]
+          };
+        }
+        return s;
+      }));
     } finally {
       setIsLoading(false);
     }
@@ -113,11 +193,19 @@ export default function App() {
     { title: 'Registration FAQs', icon: <Info className="w-4 h-4" /> },
   ];
 
-  const recentChats: ChatHistory[] = [
-    { id: '1', title: 'Freezone Company Types', date: 'Today' },
-    { id: '2', title: 'Office Space Inquiry', date: 'Yesterday' },
-    { id: '3', title: 'Golden Visa Requirements', date: '2 days ago' },
-  ];
+  const formatRelativeTime = (timestamp: number) => {
+    const diff = Date.now() - timestamp;
+    const minutes = Math.floor(diff / 60000);
+    if (minutes < 1) return 'Just now';
+    if (minutes < 60) return \`\${minutes}m ago\`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return \`\${hours}h ago\`;
+    const days = Math.floor(hours / 24);
+    if (days === 1) return 'Yesterday';
+    return \`\${days}d ago\`;
+  };
+
+  const sortedSessions = [...sessions].sort((a, b) => b.updatedAt - a.updatedAt);
 
   return (
     <div className="flex h-screen bg-masdar-black text-slate-200 overflow-hidden font-sans">
@@ -144,6 +232,7 @@ export default function App() {
                   {relatedTopics.map((topic, i) => (
                     <button 
                       key={i} 
+                      onClick={() => handleSend(\`Tell me about \${topic.title}\`)}
                       className="pill hover:bg-masdar-teal/20 transition-all flex items-center gap-1.5"
                     >
                       {topic.title}
@@ -156,13 +245,14 @@ export default function App() {
               <div className="bento-card">
                 <h3 className="text-[10px] font-bold text-masdar-blue uppercase tracking-[0.2em] mb-4">Recent Chats</h3>
                 <div className="space-y-2">
-                  {recentChats.map((chat, i) => (
+                  {sortedSessions.map((session) => (
                     <button 
-                      key={chat.id} 
-                      className={`w-full flex flex-col gap-1 py-2 px-3 rounded-lg transition-all ${i === 0 ? 'bg-white/5 border-l-2 border-masdar-teal' : 'hover:bg-white/5 opacity-60'}`}
+                      key={session.id} 
+                      onClick={() => setCurrentSessionId(session.id)}
+                      className={\`w-full flex flex-col gap-1 py-2 px-3 rounded-lg transition-all \${session.id === currentSessionId ? 'bg-white/5 border-l-2 border-masdar-teal' : 'hover:bg-white/5 opacity-60'}\`}
                     >
-                      <span className="text-xs font-medium text-left truncate">{chat.title}</span>
-                      <span className="text-[10px] text-left opacity-40">{chat.date}</span>
+                      <span className="text-xs font-medium text-left truncate">{session.title}</span>
+                      <span className="text-[10px] text-left opacity-40">{formatRelativeTime(session.updatedAt)}</span>
                     </button>
                   ))}
                 </div>
@@ -212,13 +302,13 @@ export default function App() {
               <div className="flex bg-masdar-dark p-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
                 <button 
                   onClick={() => setMode('chat')}
-                  className={`px-4 py-1.5 rounded-full transition-all ${mode === 'chat' ? 'bg-masdar-teal text-white' : 'text-slate-400 hover:text-slate-200'}`}
+                  className={\`px-4 py-1.5 rounded-full transition-all \${mode === 'chat' ? 'bg-masdar-teal text-white' : 'text-slate-400 hover:text-slate-200'}\`}
                 >
                   Chat
                 </button>
                 <button 
                   onClick={() => setMode('recommendations')}
-                  className={`px-4 py-1.5 rounded-full transition-all ${mode === 'recommendations' ? 'bg-masdar-teal text-white' : 'text-slate-400 hover:text-slate-200'}`}
+                  className={\`px-4 py-1.5 rounded-full transition-all \${mode === 'recommendations' ? 'bg-masdar-teal text-white' : 'text-slate-400 hover:text-slate-200'}\`}
                 >
                   Recommendations
                 </button>
@@ -226,13 +316,13 @@ export default function App() {
               <div className="flex bg-masdar-dark p-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
                 <button 
                   onClick={() => setInputMode('text')}
-                  className={`px-4 py-1.5 rounded-full transition-all ${inputMode === 'text' ? 'bg-masdar-teal text-white' : 'text-slate-400 hover:text-slate-200'}`}
+                  className={\`px-4 py-1.5 rounded-full transition-all \${inputMode === 'text' ? 'bg-masdar-teal text-white' : 'text-slate-400 hover:text-slate-200'}\`}
                 >
                   Text
                 </button>
                 <button 
                   onClick={() => setInputMode('voice')}
-                  className={`px-4 py-1.5 rounded-full transition-all ${inputMode === 'voice' ? 'bg-masdar-teal text-white' : 'text-slate-400 hover:text-slate-200'}`}
+                  className={\`px-4 py-1.5 rounded-full transition-all \${inputMode === 'voice' ? 'bg-masdar-teal text-white' : 'text-slate-400 hover:text-slate-200'}\`}
                 >
                   Voice
                 </button>
@@ -241,9 +331,11 @@ export default function App() {
           </div>
 
           <button 
-            className="border border-masdar-teal text-masdar-teal px-6 py-2 rounded-full text-sm font-bold hover:bg-masdar-teal hover:text-white transition-all uppercase tracking-tight"
+            onClick={handleNewChat}
+            className="flex items-center gap-1.5 bg-masdar-dark hover:bg-masdar-teal/20 text-masdar-teal px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all border border-transparent hover:border-masdar-teal/30"
           >
-            + New Chat
+            <Plus className="w-3.5 h-3.5" />
+            <span>New Chat</span>
           </button>
         </header>
 
@@ -255,17 +347,17 @@ export default function App() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 key={message.id}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={\`flex \${message.role === 'user' ? 'justify-end' : 'justify-start'}\`}
               >
-                <div className={`max-w-[85%] px-5 py-4 ${
+                <div className={\`max-w-[85%] px-5 py-4 \${
                   message.role === 'user' 
                     ? 'bg-masdar-dark text-white rounded-[20px] rounded-br-none' 
                     : 'bg-white/5 border border-white/10 text-slate-200 rounded-[20px] rounded-bl-none'
-                }`}>
+                }\`}>
                   <div className="text-sm leading-relaxed whitespace-pre-wrap">
                     {message.content}
                   </div>
-                  <div className={`text-[10px] mt-2 font-medium uppercase tracking-widest opacity-40 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
+                  <div className={\`text-[10px] mt-2 font-medium uppercase tracking-widest opacity-40 \${message.role === 'user' ? 'text-right' : 'text-left'}\`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </div>
                 </div>
@@ -314,19 +406,17 @@ export default function App() {
               <button 
                 onClick={handleSend}
                 disabled={!input.trim() || isLoading}
-                className={`p-3 rounded-xl transition-all ${
+                className={\`p-3 rounded-xl transition-all \${
                   input.trim() && !isLoading 
                     ? 'bg-masdar-teal shadow-lg shadow-teal-500/20 hover:bg-teal-600' 
                     : 'bg-slate-800 text-slate-600 pointer-events-none'
-                }`}
+                }\`}
               >
                 <Send className="w-5 h-5 text-white" />
               </button>
             </div>
           </div>
         </div>
-
-        {/* Floating Quick Action Buttons - Removed as they were covering input bar */}
       </main>
     </div>
   );
