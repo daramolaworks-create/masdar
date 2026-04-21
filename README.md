@@ -1,20 +1,48 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+  <img src="public/logo.png" alt="Masdar City Logo" height="100" />
 </div>
 
-# Run and deploy your AI Studio app
+# Masdar City AI Assistant
 
-This contains everything you need to run your app locally.
+A modern, responsive AI chatbot designed to assist users with inquiries regarding Masdar City, including Freezone Setup, UAE Golden Visas, Sustainable Commercial & Residential Real Estate, and general registration FAQs. 
 
-View your app in AI Studio: https://ai.studio/apps/390d535e-312d-4b45-a1f1-672fe286201e
+This project leverages the **DeepSeek Reasoner Model** to provide accurate, grounded responses based on an injected Masdar City Knowledge Base.
+
+## Features
+
+- **DeepSeek LLM Integration:** Uses the OpenAI SDK to interface with `deepseek-reasoner` for high-quality, thoughtful answers.
+- **Masdar City Knowledge Base:** Pre-loaded with specific context regarding Masdar City's offerings and policies.
+- **Persistent Sessions (Local Storage):** Chat history is automatically saved to your browser's local storage.
+- **Auto-Titling & Search:** Sessions are automatically titled based on your first query, and the sidebar includes a fully functional search to filter your past chats.
+- **Voice Input:** Native Web Speech API integration allows for hands-free dictation.
+- **Interactive Recommendations:** A dedicated explore tab featuring glassmorphic UI cards to quickly prompt the AI about popular topics.
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+
+2. Configure Environment Variables:
+   Create a `.env` file in the root directory and add your DeepSeek API key:
+   ```env
+   VITE_DEEPSEEK_API_KEY=your_deepseek_api_key_here
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and navigate to the local URL (usually `http://localhost:3000/`).
+
+## Tech Stack
+- React
+- Vite
+- TailwindCSS
+- Framer Motion
+- DeepSeek AI (via OpenAI SDK)
+- Web Speech API
