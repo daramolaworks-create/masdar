@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'DINPro';
+  src: url('/fonts/DINPro-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro';
+  src: url('/fonts/DINPro-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro';
+  src: url('/fonts/DINPro-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro';
+  src: url('/fonts/DINPro-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@theme {
+  --font-sans: "DINPro", "Inter", "Calibri", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-masdar-teal: #00A8A9;
+  --color-masdar-dark: #313E48;
+  --color-masdar-black: #101820;
+  --color-masdar-blue: #41748D;
+}
+
+:root {
+  --masdar-teal: #00A8A9;
+  --masdar-dark: #313E48;
+  --masdar-black: #101820;
+  --masdar-blue: #41748D;
+}
+
+body {
+  @apply bg-masdar-black text-white font-sans antialiased;
+}
+
+.bento-card {
+  @apply bg-white/5 border border-white/10 rounded-xl p-3;
+}
+
+.pill {
+  @apply px-3 py-1 rounded-full text-xs font-medium bg-masdar-teal/10 border border-masdar-teal/30 text-masdar-teal whitespace-nowrap;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-masdar-black;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-masdar-dark rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-masdar-blue;
+}
