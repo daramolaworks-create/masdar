@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { chatWithAssistant } from './lib/deepseek';
+import Markdown from 'react-markdown';
 
 // Global types for speech recognition
 declare global {
@@ -462,9 +463,15 @@ export default function App() {
                       ? 'bg-masdar-teal text-white rounded-[20px] rounded-br-none' 
                       : 'bg-white border border-masdar-border text-masdar-text rounded-[20px] rounded-bl-none'
                   }`}>
-                    <div className="text-sm leading-relaxed whitespace-pre-wrap">
-                      {message.content}
-                    </div>
+                    {message.role === 'model' ? (
+                      <div className="prose-chat text-sm leading-relaxed">
+                        <Markdown>{message.content}</Markdown>
+                      </div>
+                    ) : (
+                      <div className="text-sm leading-relaxed whitespace-pre-wrap">
+                        {message.content}
+                      </div>
+                    )}
                     <div className={`text-[10px] mt-2 font-medium uppercase tracking-widest ${message.role === 'user' ? 'text-right text-white/60' : 'text-left text-masdar-text-light'}`}>
                       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </div>
