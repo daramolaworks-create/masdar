@@ -379,14 +379,14 @@ export default function App() {
 
             {/* Bottom Actions */}
             <div className="p-4 border-t border-masdar-border space-y-2 mt-auto">
-              <button className="w-full flex items-center justify-center gap-2 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] py-2 rounded-lg text-sm font-medium border border-[#25D366]/20 transition-all cursor-pointer">
+              <a href="https://wa.me/9718006239" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] py-2 rounded-lg text-sm font-medium border border-[#25D366]/20 transition-all cursor-pointer">
                 <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp</span>
-              </button>
-              <button className="w-full flex items-center justify-center gap-2 bg-masdar-teal/10 hover:bg-masdar-teal/20 text-masdar-teal py-2 rounded-lg text-sm font-medium border border-masdar-teal/20 transition-all cursor-pointer">
+                <span>WhatsApp (800) 6239</span>
+              </a>
+              <a href="tel:+9718006239" className="w-full flex items-center justify-center gap-2 bg-masdar-teal/10 hover:bg-masdar-teal/20 text-masdar-teal py-2 rounded-lg text-sm font-medium border border-masdar-teal/20 transition-all cursor-pointer">
                 <Phone className="w-4 h-4" />
-                <span>Call Us</span>
-              </button>
+                <span>Call (800) 6239</span>
+              </a>
             </div>
           </motion.aside>
         )}
