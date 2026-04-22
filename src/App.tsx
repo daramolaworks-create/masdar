@@ -459,8 +459,9 @@ export default function App() {
         <header className="h-16 flex items-center justify-between px-4 sm:px-8 glass-panel sticky top-0 z-20">
           <div className="flex items-center gap-2 sm:gap-4">
             <button 
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
-              className="p-2 hover:bg-masdar-gray rounded-lg transition-colors text-masdar-text-light md:hidden cursor-pointer"
+              type="button"
+              onClick={() => setIsSidebarOpen(true)} 
+              className="p-2 hover:bg-masdar-gray rounded-lg transition-colors text-masdar-text-light md:hidden cursor-pointer active:scale-95"
             >
               <Menu className="w-5 h-5" />
             </button>
@@ -625,18 +626,19 @@ export default function App() {
                 <div className="bg-masdar-gray border border-masdar-border rounded-2xl flex items-center p-2 gap-3 shadow-sm transition-all focus-within:border-masdar-teal focus-within:shadow-md">
                   <input 
                     type="file" 
-                    ref={fileInputRef} 
+                    id="file-upload"
+                    ref={fileInputRef}
                     onChange={handleFileUpload} 
-                    className="hidden" 
+                    className="w-0 h-0 opacity-0 absolute pointer-events-none" 
                     accept=".txt,.csv,.md,.json,text/plain"
                   />
-                  <button 
-                    onClick={() => fileInputRef.current?.click()}
-                    className="p-3 text-masdar-text-light hover:bg-white rounded-xl transition-colors cursor-pointer"
+                  <label 
+                    htmlFor="file-upload"
+                    className="p-3 text-masdar-text-light hover:bg-white rounded-xl transition-colors cursor-pointer active:scale-95 flex items-center justify-center"
                     title="Upload a text document"
                   >
                     <Paperclip className="w-5 h-5" />
-                  </button>
+                  </label>
                 <input
                   type="text"
                   value={input}
