@@ -393,9 +393,13 @@ export default function App() {
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col relative h-full">
+      <main className="flex-1 flex flex-col relative h-full bg-masdar-pattern">
+        {/* Decorative Background Elements */}
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-masdar-teal/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-masdar-blue/5 rounded-full blur-[120px] pointer-events-none"></div>
+
         {/* Top Navbar */}
-        <header className="h-16 flex items-center justify-between px-8 border-b border-masdar-border bg-white/80 backdrop-blur-md sticky top-0 z-10">
+        <header className="h-16 flex items-center justify-between px-8 glass-panel sticky top-0 z-20">
           <div className="flex items-center gap-4">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
@@ -449,7 +453,7 @@ export default function App() {
         {/* Content Area */}
         {mode === 'chat' ? (
           /* Chat Feed */
-          <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-8 space-y-6 scroll-smooth bg-masdar-gray/50">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-8 space-y-6 scroll-smooth relative z-10">
             <div className="max-w-3xl mx-auto space-y-6">
               {messages.map((message) => (
                 <motion.div
@@ -493,7 +497,7 @@ export default function App() {
           </div>
         ) : (
           /* Recommendations View */
-          <div className="flex-1 overflow-y-auto px-8 py-12 bg-masdar-gray/50">
+          <div className="flex-1 overflow-y-auto px-8 py-12 relative z-10">
             <div className="max-w-5xl mx-auto">
               <h2 className="text-3xl font-light text-masdar-dark mb-2">Explore <span className="font-bold text-masdar-teal">Masdar City</span></h2>
               <p className="text-masdar-text-light mb-8 max-w-2xl">Discover opportunities in sustainability, business setup, and premium real estate in the heart of Abu Dhabi.</p>
@@ -523,7 +527,7 @@ export default function App() {
         )}
 
         {/* Input Area */}
-        <div className="p-6 border-t border-masdar-border bg-white relative z-20">
+        <div className="p-6 glass-panel relative z-20">
           <div className="max-w-4xl mx-auto relative group">
             {inputMode === 'voice' ? (
               /* Voice Input Mode */

@@ -177,3 +177,17 @@ body {
   border-top: 1px solid #E2E8F0;
   margin: 1em 0;
 }
+
+/* UI Background Patterns */
+.bg-masdar-pattern {
+  background-color: #F5F7FA;
+  background-image: radial-gradient(rgba(0, 168, 169, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
