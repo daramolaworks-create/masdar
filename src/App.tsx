@@ -350,16 +350,30 @@ export default function App() {
     <div className="flex h-screen bg-white text-masdar-text overflow-hidden font-sans">
       {/* Sidebar */}
       <AnimatePresence mode="wait">
+        {/* Mobile Sidebar Backdrop */}
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/20 z-40 md:hidden backdrop-blur-sm"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+        
         {isSidebarOpen && (
           <motion.aside
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 280, opacity: 1 }}
-            exit={{ width: 0, opacity: 0 }}
-            className="hidden md:flex flex-col bg-masdar-sidebar border-r border-masdar-border"
+            initial={{ width: 0, opacity: 0, x: -280 }}
+            animate={{ width: 280, opacity: 1, x: 0 }}
+            exit={{ width: 0, opacity: 0, x: -280 }}
+            className="absolute md:relative z-50 h-full flex flex-col bg-masdar-sidebar border-r border-masdar-border shadow-2xl md:shadow-none"
           >
-            {/* Logo */}
-            <div className="p-8 pb-4">
+            {/* Logo and Mobile Close */}
+            <div className="p-8 pb-4 flex justify-between items-center">
               <img src="/logo.png" alt="Masdar City Logo" className="h-10 w-auto object-contain" />
+              <button onClick={() => setIsSidebarOpen(false)} className="md:hidden p-2 text-masdar-text-light hover:bg-masdar-gray rounded-lg">
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
             {/* Main Sidebar Content */}
@@ -442,41 +456,41 @@ export default function App() {
         <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-masdar-blue/5 rounded-full blur-[120px] pointer-events-none"></div>
 
         {/* Top Navbar */}
-        <header className="h-16 flex items-center justify-between px-8 glass-panel sticky top-0 z-20">
-          <div className="flex items-center gap-4">
+        <header className="h-16 flex items-center justify-between px-4 sm:px-8 glass-panel sticky top-0 z-20">
+          <div className="flex items-center gap-2 sm:gap-4">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
               className="p-2 hover:bg-masdar-gray rounded-lg transition-colors text-masdar-text-light md:hidden cursor-pointer"
             >
               <Menu className="w-5 h-5" />
             </button>
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {/* Chat / Recommendations toggle */}
-              <div className="flex bg-masdar-gray p-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+              <div className="flex bg-masdar-gray p-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider">
                 <button 
                   onClick={() => setMode('chat')}
-                  className={`px-4 py-1.5 rounded-full transition-all cursor-pointer ${mode === 'chat' ? 'bg-masdar-teal text-white shadow-sm' : 'text-masdar-text-light hover:text-masdar-text'}`}
+                  className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full transition-all cursor-pointer ${mode === 'chat' ? 'bg-masdar-teal text-white shadow-sm' : 'text-masdar-text-light hover:text-masdar-text'}`}
                 >
                   Chat
                 </button>
                 <button 
                   onClick={() => setMode('recommendations')}
-                  className={`px-4 py-1.5 rounded-full transition-all cursor-pointer ${mode === 'recommendations' ? 'bg-masdar-teal text-white shadow-sm' : 'text-masdar-text-light hover:text-masdar-text'}`}
+                  className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full transition-all cursor-pointer ${mode === 'recommendations' ? 'bg-masdar-teal text-white shadow-sm' : 'text-masdar-text-light hover:text-masdar-text'}`}
                 >
-                  Recommendations
+                  Explore
                 </button>
               </div>
               {/* Text / Voice toggle */}
-              <div className="flex bg-masdar-gray p-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+              <div className="hidden sm:flex bg-masdar-gray p-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider">
                 <button 
                   onClick={() => setInputMode('text')}
-                  className={`px-4 py-1.5 rounded-full transition-all cursor-pointer ${inputMode === 'text' ? 'bg-masdar-teal text-white shadow-sm' : 'text-masdar-text-light hover:text-masdar-text'}`}
+                  className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full transition-all cursor-pointer ${inputMode === 'text' ? 'bg-masdar-teal text-white shadow-sm' : 'text-masdar-text-light hover:text-masdar-text'}`}
                 >
                   Text
                 </button>
                 <button 
                   onClick={() => setInputMode('voice')}
-                  className={`px-4 py-1.5 rounded-full transition-all cursor-pointer ${inputMode === 'voice' ? 'bg-masdar-teal text-white shadow-sm' : 'text-masdar-text-light hover:text-masdar-text'}`}
+                  className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full transition-all cursor-pointer ${inputMode === 'voice' ? 'bg-masdar-teal text-white shadow-sm' : 'text-masdar-text-light hover:text-masdar-text'}`}
                 >
                   Voice
                 </button>
@@ -486,10 +500,10 @@ export default function App() {
 
           <button 
             onClick={handleNewChat}
-            className="flex items-center gap-1.5 bg-masdar-gray hover:bg-masdar-teal/10 text-masdar-teal px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all border border-masdar-border hover:border-masdar-teal/30 cursor-pointer"
+            className="flex items-center gap-1.5 bg-masdar-gray hover:bg-masdar-teal/10 text-masdar-teal px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all border border-masdar-border hover:border-masdar-teal/30 cursor-pointer"
           >
-            <Plus className="w-3.5 h-3.5" />
-            <span>New Chat</span>
+            <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">New Chat</span>
           </button>
         </header>
 
