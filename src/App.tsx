@@ -20,7 +20,9 @@ import {
   Briefcase,
   Home,
   Building,
-  ChevronRight
+  ChevronRight,
+  X,
+  FileText
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { chatWithAssistant } from './lib/deepseek';
@@ -93,8 +95,12 @@ export default function App() {
   // New States
   const [searchQuery, setSearchQuery] = useState('');
   const [isListening, setIsListening] = useState(false);
+  const [attachedFileName, setAttachedFileName] = useState<string | null>(null);
+  const [attachedFileContent, setAttachedFileContent] = useState<string | null>(null);
+  
   const recognitionRef = useRef<any>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const currentSession = sessions.find(s => s.id === currentSessionId) || sessions[0];
   const messages = currentSession?.messages || [];
@@ -164,11 +170,42 @@ export default function App() {
     setSessions(prev => [newSession, ...prev]);
     setCurrentSessionId(newSession.id);
     setMode('chat');
+    clearAttachment();
+  };
+
+  const clearAttachment = () => {
+    setAttachedFileName(null);
+    setAttachedFileContent(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // We only accept text formats for this model
+    const validTypes = ['text/plain', 'text/csv', 'text/markdown', 'application/json'];
+    const validExtensions = ['.txt', '.csv', '.md', '.json'];
+    const isTextFile = validTypes.includes(file.type) || validExtensions.some(ext => file.name.toLowerCase().endsWith(ext));
+
+    if (!isTextFile) {
+      alert("The Masdar AI currently only processes text documents (.txt, .csv, .json, .md). Please upload a text file, or paste your content directly.");
+      clearAttachment();
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result as string;
+      setAttachedFileName(file.name);
+      setAttachedFileContent(text);
+    };
+    reader.readAsText(file);
   };
 
   const handleSend = async (text?: string) => {
     const messageContent = typeof text === 'string' ? text : input;
-    if (!messageContent.trim() || isLoading) return;
+    if ((!messageContent.trim() && !attachedFileContent) || isLoading) return;
 
     if (isListening) {
       recognitionRef.current?.stop();
@@ -177,10 +214,15 @@ export default function App() {
 
     setMode('chat');
 
+    let finalMessageContent = messageContent;
+    if (attachedFileContent && attachedFileName) {
+      finalMessageContent = `${messageContent}\n\n--- Attached File: ${attachedFileName} ---\n${attachedFileContent}`;
+    }
+
     const userMsg: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: messageContent,
+      content: finalMessageContent,
       timestamp: new Date(),
     };
 
@@ -203,6 +245,7 @@ export default function App() {
 
     setSessions(updatedSessions);
     if (messageContent === input) setInput('');
+    clearAttachment();
     setIsLoading(true);
 
     try {
@@ -552,10 +595,34 @@ export default function App() {
               </div>
             ) : (
               /* Text Input Mode */
-              <div className="bg-masdar-gray border border-masdar-border rounded-2xl flex items-center p-2 gap-3 shadow-sm transition-all focus-within:border-masdar-teal focus-within:shadow-md">
-                <button className="p-3 text-masdar-text-light hover:bg-white rounded-xl transition-colors cursor-pointer">
-                  <Paperclip className="w-5 h-5" />
-                </button>
+              <div className="w-full">
+                {attachedFileName && (
+                  <div className="flex items-center gap-2 bg-masdar-teal/10 text-masdar-teal px-3 py-1.5 rounded-lg mb-3 text-xs font-medium w-fit border border-masdar-teal/20 backdrop-blur-md">
+                    <FileText className="w-3.5 h-3.5" />
+                    <span className="max-w-[200px] truncate">{attachedFileName}</span>
+                    <button 
+                      onClick={clearAttachment}
+                      className="hover:text-red-500 transition-colors ml-1 p-0.5 rounded-md hover:bg-red-500/10 cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
+                <div className="bg-masdar-gray border border-masdar-border rounded-2xl flex items-center p-2 gap-3 shadow-sm transition-all focus-within:border-masdar-teal focus-within:shadow-md">
+                  <input 
+                    type="file" 
+                    ref={fileInputRef} 
+                    onChange={handleFileUpload} 
+                    className="hidden" 
+                    accept=".txt,.csv,.md,.json,text/plain"
+                  />
+                  <button 
+                    onClick={() => fileInputRef.current?.click()}
+                    className="p-3 text-masdar-text-light hover:bg-white rounded-xl transition-colors cursor-pointer"
+                    title="Upload a text document"
+                  >
+                    <Paperclip className="w-5 h-5" />
+                  </button>
                 <input
                   type="text"
                   value={input}
@@ -578,15 +645,16 @@ export default function App() {
                 </button>
                 <button 
                   onClick={() => handleSend()}
-                  disabled={!input.trim() || isLoading}
+                  disabled={(!input.trim() && !attachedFileContent) || isLoading}
                   className={`p-3 rounded-xl transition-all ${
-                    input.trim() && !isLoading 
+                    (input.trim() || attachedFileContent) && !isLoading 
                       ? 'bg-masdar-teal shadow-lg shadow-masdar-teal/20 hover:bg-teal-600 cursor-pointer' 
                       : 'bg-masdar-border text-masdar-text-light pointer-events-none'
                   }`}
                 >
                   <Send className="w-5 h-5 text-white" />
                 </button>
+                </div>
               </div>
             )}
           </div>
