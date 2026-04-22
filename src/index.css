@@ -33,43 +33,48 @@
   --font-sans: "DINPro", "Inter", "Calibri", ui-sans-serif, system-ui, sans-serif;
   
   --color-masdar-teal: #00A8A9;
-  --color-masdar-dark: #313E48;
+  --color-masdar-dark: #1A2B3C;
   --color-masdar-black: #101820;
   --color-masdar-blue: #41748D;
+  --color-masdar-gray: #F5F7FA;
+  --color-masdar-border: #E2E8F0;
+  --color-masdar-text: #2D3748;
+  --color-masdar-text-light: #718096;
+  --color-masdar-sidebar: #FAFBFC;
 }
 
 :root {
   --masdar-teal: #00A8A9;
-  --masdar-dark: #313E48;
+  --masdar-dark: #1A2B3C;
   --masdar-black: #101820;
   --masdar-blue: #41748D;
 }
 
 body {
-  @apply bg-masdar-black text-white font-sans antialiased;
+  @apply bg-white text-masdar-text font-sans antialiased;
 }
 
 .bento-card {
-  @apply bg-white/5 border border-white/10 rounded-xl p-3;
+  @apply bg-white border border-masdar-border rounded-xl p-3 shadow-sm;
 }
 
 .pill {
   @apply px-3 py-1 rounded-full text-xs font-medium bg-masdar-teal/10 border border-masdar-teal/30 text-masdar-teal whitespace-nowrap;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar — light theme */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-masdar-black;
+  @apply bg-masdar-gray;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-masdar-dark rounded-full;
+  @apply bg-masdar-border rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-masdar-blue;
+  @apply bg-masdar-text-light;
 }
