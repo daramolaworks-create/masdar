@@ -1,0 +1,63 @@
+MCFZ Business Rules
+[For Internal Use Only]
+Prepared By: [Mohammad Fahad]
+Date: [22/04/2026]
+Version: [1.4]
+Company Rules
+A company legal status can only be either a Limited Liability Company (L.L.C) or Branch.
+Company names must comply with the most up-to-date MCFZ company name rules
+A company can be formed with a multi-year license
+For multi-year licenses, discounts are applied to the package price
+The legal age for managers and directors is 18 years. 
+A company (either LLC or Branch) can only have 1 manager.
+A company (either LLC or Branch) must have at least 1 UBO.
+An LLC company must have a minimum of 1 Director and can have a maximum of 99 Directors.         
+A limited company must have a minimum of 1 Legal Representative and can a have a maximum of 99 Legal Representatives.
+A Branch cannot have any shareholders or directors.
+A Branch can have a Legal Representative for the Manager.
+Re-domiciling is not allowed
+Startup Package Rules
+A maximum of 99 shareholders can be added (Corporate or Individual)
+A dummy lease is provided for opening a bank account
+Business One Package Rules
+A maximum of 99 shareholders can be added (Corporate or Individual)
+A lease (flexi-desk) is provided
+Enterprise Package Rules
+A maximum of 99 shareholders can be added (Corporate or Individual)
+A lease (flexi-desk) is provided, however, if the client is leasing a premises within Masdar City, then the lease fee within this package can be refunded to the client
+Innovation Package Rules
+A maximum of 99 shareholders can be added (Corporate or Individual)
+All shareholders must be female for women entrepreneurship
+A lease (flexi-desk) is provided
+Only eligible business activities can be executed with this package
+Emirati Package Rules
+A maximum of 99 individual shareholders can be added
+All shareholders must be Emirati Nationals
+All other types of company stakeholders can be of any nationality
+Freelancer License
+Shareholder Rules
+The minimum age requirement to become an individual shareholder is 18 years.
+Shareholders can be either an Individual or Entity / Company.
+A company can only have a maximum of 99 shareholders.
+The number of shares and share capital must be in whole numbers.
+The share capital is not paid up for Masdar City companies.
+The minimum share capital for a shareholder must be AED 50,000 (Fifty Thousand United Arab Emirate Dirhams).
+The minimum value per share must be AED 1,000 (One Thousand United Arab Emirate Dirhams)
+Additional shareholders can be added to each business packages for a fee of AED 1,000 per additional shareholder up to a maximum of 99 shareholders.
+Manager Rules
+The company manager does not need to have previously entered the UAE.
+A manager requires an attested degree, however if they are also a shareholder, then they do not need an attested degree 
+Business Activity Rules
+Additional activities can be added to each business packages for a fee of AED 1,500 per additional activity.
+If any chosen activities require third-party approval, this approval can be obtained following the license issuance (except for activities that require pre-approval from Department of Health - DOH). 
+If an activity requires pre-approval from the Food Control Authority (FCA), then the client must provide an undertaking letter.
+For any application that requires assistance with third parties' approval, PRO service fees will be applicable, as determined by the Client Servicing Department.
+UBO Rules
+Only shareholders with a share capital equal to or above 25% can be a UBO
+Individual shareholders and entity shareholders can be a UBO
+Document Validation Rules
+Entity documents provided must either be extracted from the register or notarised.
+Board resolutions must be notarised and attested.
+Entity documents provided with a non-shareholder’s signature must be accompanied by the Power of Attorney (POA). If a POA is unavailable, then the signed document must be attested.
+Channel Partners
+Channel Partner Commission is applied to the Package price (after multi-year license discount) and additional Visa Allocation price

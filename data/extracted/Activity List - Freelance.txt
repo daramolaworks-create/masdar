@@ -1,0 +1,103 @@
+=== Sheet: Activity List - Freelance ===
+رقــــم النــــــــشـــاط | Activity Name | اسم النشاط
+Activity Number |  | 
+6311006 | Data Entry | خدمات إدخال البيانات
+8211023 | Photography Location Management Services | خدمات إدارة مواقع التصوير
+6201001 | Computer Systems and Software Designing | تصميم نظم وبرامج الحاسب الآلي
+6202005 | Information Technology Network Services | خدمات شبكات تقنية المعلومات
+6201014 | Gaming Development Services | خدمات تطوير الألعاب
+6202012 | Distributed Ledger Technology Services | خدمات تقنية البيانات الموزعة
+9000114 | Handicrafted Products and Environmental Works | اعمال المشغولات اليدوية والبيئية
+7490023 | Housekeeping Consulting | استشارات في التدبير المنزلي
+7020041 | Gaming Consultancy Services | خدمات استشارات الألعاب
+7310017 | Consulting and Advertising Studies | إستشارات ودراسات إعلانية
+7110939 | Commodities Designing Consultancy | استشارات تصميم السلع
+7110959 | Green Buildings Consultant | إستشارات الأبنية الخضراء
+6202006 | Cyber Security Consultancy | إستشارات الأمن الإلكتروني
+6202003 | Information Technology Consultancy | استشارات تقنية المعلومات
+6202009 | Network Consultancies | استشارات الشبكات الإلكترونية
+5229011 | Transportation Consultancy | استشارات النقل
+910018 | Onshore and Offshore Oil and Gas Fields and Facilities Services | خدمات حقول ومنشآت النفط والغاز البرية والبحرية
+7490012 | Translation Publications Services | خدمات ترجمة المطبوعات
+7020022 | Management Services Costs and Risks | خدمات إدارة التكاليف والمخاطر
+7320002 | Marketing Operations Management | إدارة العمليات التسويقية
+7120039 | Gaming Quality Assurance Specialised Services | خدمات ضمان الجودة المتخصصة للألعاب
+8299002 | Simultaneous Translation Services | خدمات الترجمة الفورية
+6201002 | Electronic Chips Designing and Programming | تصميم وبرمجة الرقائق الإلكترونية
+7420004 | Personal Videotaping | تصوير الفيديو الشخصي
+7020025 | Food Safety Consulting | استشارات السلامة الغذائية
+7020024 | Heritage Consulting | الإستشارات التراثية
+7020011 | Plague Resisting Consultancy | استشارات مقاومة الآفات
+7020023 | Procurement Consulting | إستشارات المشتريات
+7020031 | Cooking Consultant | استشارات فن الطهي
+4791019 | E-Commerce Through Social Media | المتاجرة الإلكترونية من خلال مواقع التواصل الاجتماعي
+7410002 | Precious Jewel and Jewelry Design | تصميم المجوهرات والحلى الثمينة
+1313002.3 | Silk Screening | الطباعة علي الحرير )سلك سكرين(
+4330012 | Plastering and Carving works | .أعمال التجصيص و النقش و الزخرفة
+7020039 | Innovation and Artificial Intelligence Research and Consultancies | الاستشارات والدراسات في مجال الإبتكار والذكاء الاصطناعي
+7420005 | Parties and Occasions Photography | تصوير الحفلات والمناسبات
+7420002 | Production Models by Three-Dimensional Imaging | إنتاج المجسمات بواسطة التصوير ثلاثي الأبعاد
+7020005 | Media Consultancy and Studies | الاستشارات والدراسات الاعلامية
+7020003.2 | Oil and Gas Consulting | استشارات في مجال النفط والغاز
+7110941 | Geographical Maps Drawing | رسم الخرائط الجغرافية
+6311001 | Data Classification and Analysis Services | خدمات تصنيف وتحليل البيانات
+9000102 | Parties and Events Organizing | تنظيم الحفلات والمناسبات
+7410001 | Fashion and Apparel Design | تصميم الأزياء والملابس
+7020015 | Fine Arts Consultancy | استشارات الفنون الجميلة
+7020004 | Hotel Consultancy | الاستشارات الفندقية
+7020008 | Human Resources Consultancy | استشارات الموارد البشرية
+7320003 | Statistical Services Consultancies | الخدمات والإستشارات الإحصائية
+6399002 | Information Research Services and Questionnaires | خدمات أبحاث المعلومات والاستبيان
+8230007 | Organizing Exhibitions of Art Works | تنظيم المعارض للأعمال الفنية
+6202007 | Cyber Risk Management Services | خدمات إدارة المخاطر الإلكترونية
+6201004 | Database Design | تصميم نظم قواعد البيانات
+9000906 | Calligraphers and Painters | خدمات الخط والرسم
+7110208 | Buildings Energy Efficiency Services | خدمات كفاءة الطاقة في المباني
+7020021 | Consulting Audit Legitimate Transactions of Islamic Financial Institutions | استشارات المراجعة الشرعية لمعاملات المؤسسات المالية الإسلامية
+7210125 | Development and Innovation in Computer Systems and Programmes | التطوير والابتكار في نظم و برامج الحاسب الآلي
+5223007 | Space Consultancies | استشارات  في مجال الفضاء
+7420003 | Photography Services | التصوير الفوتوغرافي
+7020003 | Administrative Consultancy and Studies | استشارات ودراسات إدارية
+7020001 | Public Relations Consultancy | استشارات في مجال العلاقات العامة
+7020009 | Waste and Garbage Treatment Consultancy | استشارات معالجة المخلفات والنفايات
+7320001 | Marketing Consultancy and Studies | استشارات ودراسات تسويقية
+6202002 | Computer Devices and Equipment Domain Consultancy | الاستشارات في مجال معدات وأجهزة الحاسب الألي
+6619002 | Banking Services Consultancy | استشارات في الخدمات المصرفية
+6201008 | Software Design for Oil and Natural Gas Fields Production | تصميم برمجيات إنتاج حـقول النفط والغاز الطبيعي
+7410003 | Design Services | خدمات التصميم
+6920003 | Accounting Records and Book Keeping Organisation | تنظيم ومسك السجلات والدفاتر المحاسبية
+6920004 | Analyzing of Accountancy and Auditing System | تحليل نظم المحاسبة والتدقيق
+8299024 | Online Players Support Service Providers | خدمات دعم لاعبي الرياضات الإلكترونية
+6201003 | Electronic Equipment and Device Systems and Software Designing | تصميم نظم وبرامج المعدات والاجهزة الالكترونية
+9609016 | Coordination of Natural and Artificial Flowers | تنسيق الزهور الطبيعية والصناعية
+9000901 | Artwork for Cosmetic Craft (Sculpture) | الأعمال الفنية للمشغولات التجميلية )النحت(
+7020026 | Technical Equipment Consultancy | استشارات التجهيزات الفنية والتقنية
+7110937 | Architectural Production and Technical Drawing Consultancy | استشارات فنية للرسم والاخراج المعماري
+8549018 | Cultural Handicrafts Training | تدريب على الحرف التراثية واليدوية
+7490015 | Agricultural Extension Services | خدمات الإرشاد الزراعي
+8299006 | Commercial Information Services | خدمات المعلومات التجارية
+8230005 | Fashion Show Organization | تنظيم عروض الازياء
+6201005 | Website Designing | تصميم مواقع الشبكة المعلوماتية
+9609019 | Soap Moulding and Formation | أعمال تشكيل الصابون
+7020020 | Project Development Consultancy | إستشارات تطوير المشاريع
+7020006 | Quality, Standardization and Measuring Consultancy | استشارات الجودة والمعايرة والتقييس
+7020019 | Spa and Fitness Clubs Consultancy | إستشارات الأندية الصحية واللياقة البدنية
+7020037 | Maritime Consultancy Services | استشارات خدمات بحرية
+7020033 | Tourism and Recreation Consultancy | الاستشارات السياحية والترفيهية
+7320006 | Marketing Consultancy in the Field of Energy | استشارات تسويقية في مجال الطاقة
+6820005 | Real Estate Consultancy | استشارات عقارية
+1313002 | Textiles and Apparel Silk-Screen Printing | طباعة الشاشة الحريرية على المنسوجات والملبوسات
+4791015 | Digital Advertising Services | الخدمات الاعلانية عبر المواقع الالكترونية
+1313002.2 | Printing on Textiles and Apparel | الطباعة على المنسوجات والملبوسات
+8211015 | Project Management Services | خدمات إدارة المشاريع
+6201006 | Design and Production of Frame Prototypes | تصميم نظم إنتاج النماذج الأولية
+8130002 | Landscape and Gardening Services | خدمات تجميل الحدائق والمنتزهات
+8292002 | Gift-Wrapping | تغليف الهدايا
+7220010 | Artificial Intelligence Developing Services | خدمات تطوير الذكاء الاصطناعي
+7490020 | Lifestyle Development Consultancy | الاستشارات في مجال تطوير أسلوب الحياة
+7020002 | Economical Feasibility Consultancy and Studies | استشارات ودراسات الجدوى الاقتصادية
+7020028 | Logistics Consultancy | الإستشارات اللوجستية
+7020030 | Parliamentary Consultancy | الاستشارات والدراسات البرلمانية
+6920002 | Tax Consultancy | الاستشارات الضريبية
+7110307 | Consumer Products Consultancy | الاستشارات في مجال المنتجات الاستهلاكية
+4791018 | E-Commerce Through Websites | المتاجرة الإلكترونية من خلال المواقع الإلكترونية
