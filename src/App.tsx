@@ -27,6 +27,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { chatWithAssistant } from './lib/deepseek';
 import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 // Global types for speech recognition
 declare global {
@@ -527,7 +528,7 @@ export default function App() {
                   }`}>
                     {message.role === 'model' ? (
                       <div className="prose-chat text-sm leading-relaxed">
-                        <Markdown>{message.content}</Markdown>
+                        <Markdown remarkPlugins={[remarkGfm]}>{message.content}</Markdown>
                       </div>
                     ) : (
                       <div className="text-sm leading-relaxed whitespace-pre-wrap">

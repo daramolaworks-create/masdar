@@ -178,6 +178,45 @@ body {
   margin: 1em 0;
 }
 
+.prose-chat table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75em 0;
+  font-size: 0.85em;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #E2E8F0;
+}
+
+.prose-chat thead {
+  background: linear-gradient(135deg, #00A8A9, #0092a8);
+  color: white;
+}
+
+.prose-chat th {
+  padding: 0.6em 0.8em;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9em;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.prose-chat td {
+  padding: 0.5em 0.8em;
+  border-top: 1px solid #E2E8F0;
+  color: #2D3748;
+  vertical-align: top;
+}
+
+.prose-chat tbody tr:nth-child(even) {
+  background-color: #F7FAFC;
+}
+
+.prose-chat tbody tr:hover {
+  background-color: #EDF2F7;
+}
+
 /* UI Background Patterns */
 .bg-masdar-pattern {
   background-color: #F5F7FA;
